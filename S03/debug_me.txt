@@ -1,0 +1,6 @@
+The error is found at line 11, and the problem is division by zero.
+line 16, which is the first print, is printed, because t 1 isn't 0 so there's no problem there.
+However, when we reach line 17, it's not printed and gives us an error, because due to the values introduced for a, b,
+c and d, t1 ends up being 0 and we end up having a division by zero.
+If we turn line 17 into comment, we can see that lines 18 and 19 are then printed.
+
