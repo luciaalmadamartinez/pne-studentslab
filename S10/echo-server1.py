@@ -57,8 +57,6 @@ while True:
         # -- Print the received message
         print(f"Message received: {msg}")
 
-        # -- Send a response message to the client
-        response = msg
 
         # -- The message has to be encoded into bytes
         cs.send(response.encode())
