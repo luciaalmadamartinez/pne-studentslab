@@ -29,53 +29,57 @@ while True:
         exit()
 
     else:
-        msg_raw = cs.recv(2048)
-        msg = msg_raw.decode()
-        msg_final = msg.strip().split(" ")
+        try:
+            msg_raw = cs.recv(2048)
+            msg = msg_raw.decode()
+            msg_final = msg.strip().split(" ")
 
+            sequences = ["ACGT", "AUTCGT", "TGCGTA", "ATCGTTTA"]
 
-        sequences = ["ACGT", "AUTCGT", "TGCGTA", "ATCGTTTA"]
+            if msg_final[0] == "PING":
+                response = "OK!"
 
-        if msg_final[0] == "PING":
-            print("PING command!")
-            response = "OK!"
-        elif msg_final[0] == "GET":
-            print("GET command")
-            number = int(msg_final[1])
-            response = sequences[number]
-        elif msg_final[0] == "INFO":
-            print("INFO command")
-            msg_seq = msg_final[1]
-            s = Seq(msg_seq)
-            base_count = s.count()
-            response = f"Sequence: {msg_seq} "
-            response += f"Length: {s.len()} "
+            elif msg_final[0] == "GET":
+                number = int(msg_final[1])
+                response = sequences[number]
 
-            num_total = 0
-            for base, value in base_count.items():
+            elif msg_final[0] == "INFO":
+                msg_seq = msg_final[1]
+                s = Seq(msg_seq)
+                base_count = s.count()
+
+                response = f"Sequence: {msg_seq}\n"
+                response += f"Length: {s.len()}\n"
+
                 num_total = sum(base_count.values())
-                percentage = round((value / num_total) * 100, 3)
-                response += f"{base} : {num_total} ({percentage} %) "
-        elif msg_final[0] == "COMP":
-            print("COMP command")
-            msg_seq = msg_final[1]
-            s = Seq(msg_seq)
-            response = s.complement()
-        elif msg_final[0] == "REV":
-            print("REV command")
-            msg_seq = msg_final[1]
-            s = Seq(msg_seq)
-            response = s.reverse()
-        elif msg_final[0] == "GENE":
-            print("GENE command")
-            gene_name = msg_final[1]
-            s = Seq()
-            s.read_fasta(f"../sequences/{gene_name}.txt")
-            response = f"{s.strbases}\n"
-        else:
-            response = ""
-        print(response)
+
+                for base, value in base_count.items():
+                    if num_total > 0:
+                        percentage = round((value / num_total) * 100, 3)
+                    else:
+                        percentage = 0
+                    response += f"{base}: {value} ({percentage}%)\n"
+
+            elif msg_final[0] == "COMP":
+                s = Seq(msg_final[1])
+                response = s.complement()
+
+            elif msg_final[0] == "REV":
+                s = Seq(msg_final[1])
+                response = s.reverse()
+
+            elif msg_final[0] == "GENE":
+                gene_name = msg_final[1]
+                s = Seq()
+                s.read_fasta(f"../sequences/{gene_name}.txt")
+                response = f"{s.strbases}\n"
+
+            else:
+                response = "ERROR"
+
+        except Exception as e:
+            print("ERROR:", e)
+            response = "ERROR"
 
         cs.send(response.encode())
-
         cs.close()
