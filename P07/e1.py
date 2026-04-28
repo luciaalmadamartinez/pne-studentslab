@@ -16,7 +16,7 @@ response = conn.getresponse()
 data = json.loads(response.read().decode())
 
 if data['ping'] == 1:
-    print("ALIVE!")
+    print("PING OK! The database is running")
 else:
     print("ERROR")
 
