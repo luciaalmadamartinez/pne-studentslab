@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Final Practice</title>
+</head>
+<body>
+
+
+<h1>Browsing Human and Vertebrate genome</h1>
+<h2>BASIC level services</h2>
+<body style="background-color:#CCE3DE;">
+
+
+
+<form action="/listSpecies" method="\get">
+    <p> 1)List of species in the genome database</p>
+<form>
+    <label>Limit:</label>
+    <input type="text" name="limit">
+<br>
+    <button type="submit">Send</button>
+</form>
+<br>
+<form action ="/Karyotype" method="/get">
+    <p> 2)Information about the karyotype</p>
+<form>
+    <label>Select the species:</label>
+    <input type="text" name="limit">
+<br>
+    <button type="submit">Send</button>
+</form>
+<br>
+<form action ="/chromosomeLength" method="/get">
+    <p>3)Chromosome Length</p>
+<form>
+    <label>Select the species:</label>
+    <input type="number" name="limit">
+<br>
+    <label>Select a chromosome:</label>
+    <input type="number" name="limit">
+<br>
+    <button type="submit">Send</button>
+</form>
+<br>
+
+
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+<body>
+<h1>SEQ SERVER</h1>
+
+<p>{{content}}</p>
+
+<a href="/ping">Ping</a><br><br>
+
+<form action="/get">
+    Get sequence (0-4): <input type="text" name="n">
+    <input type="submit">
+</form>
+
+<form action="/gene">
+    Gene name: <input type="text" name="name">
+    <input type="submit">
+</form>
+
+<form action="/operation">
+    Sequence: <input type="text" name="seq"><br>
+    Operation:
+    <select name="op">
+        <option value="info">INFO</option>
+        <option value="comp">COMP</option>
+        <option value="rev">REV</option>
+    </select>
+    <input type="submit">
+</form>
+
+</body>
+</html>
